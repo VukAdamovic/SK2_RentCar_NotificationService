@@ -30,7 +30,7 @@ public class ChangedPasswordNotificationListener {
     }
 
     @JmsListener(destination = "${destination.changedPassword}", concurrency = "5-10")
-    public void decrementRentCar(Message message) throws JMSException {
+    public void changedPasswordNotification(Message message) throws JMSException {
         ChangedPasswordDto changedPasswordDto = messageHelper.getMessage(message,ChangedPasswordDto.class);
         System.out.println(changedPasswordDto);
 
