@@ -29,7 +29,7 @@ public class EmailServiceImpl implements EmailService {
         email.setNotification(notification);
         email.setSubject(notification.getNotificationType().getName());
         email.setContext(notification.getText());
-        email.setEmailFrom("TestniMejl stavi");
+        email.setEmailFrom("skProjekat2Test@gmail.com");
         email.setEmailTo(notification.getParametar().getEmail());
         email.setDate(String.valueOf(LocalDate.now()));
 
