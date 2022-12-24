@@ -14,14 +14,11 @@ import org.springframework.stereotype.Component;
 public class NotificationMapper {
 
     private NotificationTypeRepository notificationTypeRepository;
-    private ParametarRepository parametarRepository;
     private NotificationRepository notificationRepository;
     private ParametarMapper parametarMapper;
 
-    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, ParametarRepository parametarRepository,
-                              NotificationRepository notificationRepository, ParametarMapper parametarMapper) {
+    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper) {
         this.notificationTypeRepository = notificationTypeRepository;
-        this.parametarRepository = parametarRepository;
         this.notificationRepository = notificationRepository;
         this.parametarMapper = parametarMapper;
     }
@@ -32,7 +29,6 @@ public class NotificationMapper {
         notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("ACTIVATE_EMAIL").get());
         notification.setParametar(parametarMapper.activateEmailDtoToParametar(activateEmailDto));
 
-        parametarRepository.save(notification.getParametar());
 
         //SetTekst
         String firstName = notification.getParametar().getFirstName();
@@ -49,8 +45,6 @@ public class NotificationMapper {
 
         notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("CHANGED_PASSWORD").get());
         notification.setParametar(parametarMapper.changedPasswordDtoToParametar(changedPasswordDto));
-
-        parametarRepository.save(notification.getParametar());
 
 
         //SetTekst
