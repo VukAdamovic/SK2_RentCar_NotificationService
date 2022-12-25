@@ -29,7 +29,7 @@ public class EmailServiceImpl implements EmailService {
         email.setNotification(notification);
         email.setSubject(notification.getNotificationType().getName());
         email.setContext(notification.getText());
-        email.setEmailFrom("skProjekat2Test@gmail.com");
+        email.setEmailFrom("skprojekat2test@gmail.com");
         email.setEmailTo(notification.getParametar().getEmail());
         email.setDate(String.valueOf(LocalDate.now()));
 
@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
         //send email
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email.getEmailTo());
-        message.setTo(email.getSubject());
+        message.setSubject(email.getSubject());
         message.setText(email.getContext());
         mailSender.send(message);
 
