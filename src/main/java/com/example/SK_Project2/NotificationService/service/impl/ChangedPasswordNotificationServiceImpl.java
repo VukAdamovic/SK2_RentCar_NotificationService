@@ -21,21 +21,28 @@ public class ChangedPasswordNotificationServiceImpl implements ChangedPasswordNo
     private ParametarRepository parametarRepository;
     private ParametarMapper parametarMapper;
 
-    public ChangedPasswordNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
-                                                  ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
+//    public ChangedPasswordNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
+//                                                  ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
+//        this.notificationRepository = notificationRepository;
+//        this.notificationMapper = notificationMapper;
+//        this.parametarRepository = parametarRepository;
+//        this.parametarMapper = parametarMapper;
+//    }
+
+
+    public ChangedPasswordNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper) {
         this.notificationRepository = notificationRepository;
         this.notificationMapper = notificationMapper;
-        this.parametarRepository = parametarRepository;
-        this.parametarMapper = parametarMapper;
     }
 
     @Override
     public NotificationDto add(ChangedPasswordDto changedPasswordDto) {
-        Notification notification = notificationMapper.changedPasswordDtoToNotification(changedPasswordDto);
-        Parametar parametar = parametarMapper.changedPasswordDtoToParametar(changedPasswordDto);
+        //Parametar parametar = parametarMapper.changedPasswordDtoToParametar(changedPasswordDto);
+        //parametarRepository.save(parametar);
 
+        Notification notification = notificationMapper.changedPasswordDtoToNotification(changedPasswordDto);
         notificationRepository.save(notification);
-        parametarRepository.save(parametar);
+
 
         return notificationMapper.notificationToNotificationDto(notification);
     }

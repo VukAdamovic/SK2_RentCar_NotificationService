@@ -21,21 +21,32 @@ public class ActivateEmailNotificationServiceImpl implements ActivateEmailNotifi
     private ParametarRepository parametarRepository;
     private ParametarMapper parametarMapper;
 
-    public ActivateEmailNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
-                                                ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
+//    public ActivateEmailNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
+//                                                ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
+//        this.notificationRepository = notificationRepository;
+//        this.notificationMapper = notificationMapper;
+//        this.parametarRepository = parametarRepository;
+//        this.parametarMapper = parametarMapper;
+//    }
+
+
+    public ActivateEmailNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper) {
         this.notificationRepository = notificationRepository;
         this.notificationMapper = notificationMapper;
-        this.parametarRepository = parametarRepository;
-        this.parametarMapper = parametarMapper;
     }
 
     @Override
     public NotificationDto add(ActivateEmailDto activateEmailDto) {
-        Notification notification = notificationMapper.activateEmailDtoToNotification(activateEmailDto);
-        Parametar parametar = parametarMapper.activateEmailDtoToParametar(activateEmailDto);
+//        Parametar parametar = parametarMapper.activateEmailDtoToParametar(activateEmailDto);
+//        parametarRepository.save(parametar);
 
-        parametarRepository.save(parametar);
+
+        Notification notification = notificationMapper.activateEmailDtoToNotification(activateEmailDto);
+
         notificationRepository.save(notification);
+
+        //System.out.println(notification.getText());
+
 
         return notificationMapper.notificationToNotificationDto(notification);
     }

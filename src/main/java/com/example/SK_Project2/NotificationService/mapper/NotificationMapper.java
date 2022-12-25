@@ -16,11 +16,19 @@ public class NotificationMapper {
     private NotificationTypeRepository notificationTypeRepository;
     private NotificationRepository notificationRepository;
     private ParametarMapper parametarMapper;
+    private ParametarRepository parametarRepository; //
 
-    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper) {
+//    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper) {
+//        this.notificationTypeRepository = notificationTypeRepository;
+//        this.notificationRepository = notificationRepository;
+//        this.parametarMapper = parametarMapper;
+//    }
+
+    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper, ParametarRepository parametarRepository) {
         this.notificationTypeRepository = notificationTypeRepository;
         this.notificationRepository = notificationRepository;
         this.parametarMapper = parametarMapper;
+        this.parametarRepository = parametarRepository;
     }
 
     public Notification activateEmailDtoToNotification(ActivateEmailDto activateEmailDto){
@@ -29,6 +37,7 @@ public class NotificationMapper {
         notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("ACTIVATE_EMAIL").get());
         notification.setParametar(parametarMapper.activateEmailDtoToParametar(activateEmailDto));
 
+        parametarRepository.save(notification.getParametar()); //
 
         //SetTekst
         String firstName = notification.getParametar().getFirstName();
@@ -45,6 +54,9 @@ public class NotificationMapper {
 
         notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("CHANGED_PASSWORD").get());
         notification.setParametar(parametarMapper.changedPasswordDtoToParametar(changedPasswordDto));
+
+
+        parametarRepository.save(notification.getParametar());//
 
 
         //SetTekst
