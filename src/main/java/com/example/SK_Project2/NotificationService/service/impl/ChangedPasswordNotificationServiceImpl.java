@@ -18,16 +18,6 @@ public class ChangedPasswordNotificationServiceImpl implements ChangedPasswordNo
 
     private NotificationRepository notificationRepository;
     private NotificationMapper notificationMapper;
-    private ParametarRepository parametarRepository;
-    private ParametarMapper parametarMapper;
-
-//    public ChangedPasswordNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
-//                                                  ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
-//        this.notificationRepository = notificationRepository;
-//        this.notificationMapper = notificationMapper;
-//        this.parametarRepository = parametarRepository;
-//        this.parametarMapper = parametarMapper;
-//    }
 
 
     public ChangedPasswordNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper) {
@@ -37,12 +27,9 @@ public class ChangedPasswordNotificationServiceImpl implements ChangedPasswordNo
 
     @Override
     public NotificationDto add(ChangedPasswordDto changedPasswordDto) {
-        //Parametar parametar = parametarMapper.changedPasswordDtoToParametar(changedPasswordDto);
-        //parametarRepository.save(parametar);
-
         Notification notification = notificationMapper.changedPasswordDtoToNotification(changedPasswordDto);
-        notificationRepository.save(notification);
 
+        notificationRepository.save(notification);
 
         return notificationMapper.notificationToNotificationDto(notification);
     }

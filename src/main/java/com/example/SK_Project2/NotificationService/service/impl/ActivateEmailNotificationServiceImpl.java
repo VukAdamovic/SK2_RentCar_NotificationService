@@ -18,16 +18,6 @@ public class ActivateEmailNotificationServiceImpl implements ActivateEmailNotifi
 
     private NotificationRepository notificationRepository;
     private NotificationMapper notificationMapper;
-    private ParametarRepository parametarRepository;
-    private ParametarMapper parametarMapper;
-
-//    public ActivateEmailNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper,
-//                                                ParametarRepository parametarRepository, ParametarMapper parametarMapper) {
-//        this.notificationRepository = notificationRepository;
-//        this.notificationMapper = notificationMapper;
-//        this.parametarRepository = parametarRepository;
-//        this.parametarMapper = parametarMapper;
-//    }
 
 
     public ActivateEmailNotificationServiceImpl(NotificationRepository notificationRepository, NotificationMapper notificationMapper) {
@@ -37,16 +27,9 @@ public class ActivateEmailNotificationServiceImpl implements ActivateEmailNotifi
 
     @Override
     public NotificationDto add(ActivateEmailDto activateEmailDto) {
-//        Parametar parametar = parametarMapper.activateEmailDtoToParametar(activateEmailDto);
-//        parametarRepository.save(parametar);
-
-
         Notification notification = notificationMapper.activateEmailDtoToNotification(activateEmailDto);
 
         notificationRepository.save(notification);
-
-        //System.out.println(notification.getText());
-
 
         return notificationMapper.notificationToNotificationDto(notification);
     }

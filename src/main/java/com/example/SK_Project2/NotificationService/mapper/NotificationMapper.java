@@ -3,12 +3,16 @@ package com.example.SK_Project2.NotificationService.mapper;
 import com.example.SK_Project2.NotificationService.domain.Notification;
 import com.example.SK_Project2.NotificationService.dto.notification.NotificationDto;
 import com.example.SK_Project2.NotificationService.dto.parametar.ActivateEmailDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.CanceledReservationDto;
 import com.example.SK_Project2.NotificationService.dto.parametar.ChangedPasswordDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.SuccessfulReservationDto;
 import com.example.SK_Project2.NotificationService.exception.NotFoundException;
 import com.example.SK_Project2.NotificationService.repository.NotificationRepository;
 import com.example.SK_Project2.NotificationService.repository.NotificationTypeRepository;
 import com.example.SK_Project2.NotificationService.repository.ParametarRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class NotificationMapper {
@@ -16,13 +20,8 @@ public class NotificationMapper {
     private NotificationTypeRepository notificationTypeRepository;
     private NotificationRepository notificationRepository;
     private ParametarMapper parametarMapper;
-    private ParametarRepository parametarRepository; //
+    private ParametarRepository parametarRepository;
 
-//    public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper) {
-//        this.notificationTypeRepository = notificationTypeRepository;
-//        this.notificationRepository = notificationRepository;
-//        this.parametarMapper = parametarMapper;
-//    }
 
     public NotificationMapper(NotificationTypeRepository notificationTypeRepository, NotificationRepository notificationRepository, ParametarMapper parametarMapper, ParametarRepository parametarRepository) {
         this.notificationTypeRepository = notificationTypeRepository;
@@ -37,7 +36,7 @@ public class NotificationMapper {
         notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("ACTIVATE_EMAIL").get());
         notification.setParametar(parametarMapper.activateEmailDtoToParametar(activateEmailDto));
 
-        parametarRepository.save(notification.getParametar()); //
+        parametarRepository.save(notification.getParametar());
 
         //SetTekst
         String firstName = notification.getParametar().getFirstName();
@@ -56,7 +55,7 @@ public class NotificationMapper {
         notification.setParametar(parametarMapper.changedPasswordDtoToParametar(changedPasswordDto));
 
 
-        parametarRepository.save(notification.getParametar());//
+        parametarRepository.save(notification.getParametar());
 
 
         //SetTekst
@@ -69,6 +68,44 @@ public class NotificationMapper {
     }
 
 
+    public Notification successfulReservationDtoToNotification(SuccessfulReservationDto successfulReservationDto){
+        Notification notification = new Notification();
+
+        notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("SUCCESSFUL_RESERVATION").get());
+        notification.setParametar(parametarMapper.successfulReservationDtoToParametar(successfulReservationDto));
+
+
+        parametarRepository.save(notification.getParametar());
+
+        //Set tekst
+        String car = notification.getParametar().getCar();
+        String price = notification.getParametar().getPrice();
+        Date startDate = notification.getParametar().getStartDate();
+        Date endDate = notification.getParametar().getEndDate();
+        notification.setText("Uspesna rezervacija automobila '" + car +"'. " +
+                "Ukupna cena iznosi: '" + price +", u periodu od " + startDate + " do " + endDate);
+
+        return notification;
+    }
+
+    public Notification canceledReservationDtoToNotification(CanceledReservationDto canceledReservationDto){
+        Notification notification = new Notification();
+
+        notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("CANCELED_RESERVATION").get());
+        notification.setParametar(parametarMapper.canceledReservationDtoToParametar(canceledReservationDto));
+
+        parametarRepository.save(notification.getParametar());
+
+        //Set tekst
+        String car = notification.getParametar().getCar();
+
+        notification.setText("Uspesna otkazana rezervacija automobila '" + car +"'");
+
+        return notification;
+
+    }
+
+
     public NotificationDto  notificationToNotificationDto (Notification notification){
         NotificationDto notificationDto = new NotificationDto();
 
@@ -77,6 +114,7 @@ public class NotificationMapper {
 
         return notificationDto;
     }
+
 
     public Notification notificationDtoToNotification(NotificationDto notificationDto){
         Notification notification = notificationRepository.findNotificationById(notificationDto.getId())

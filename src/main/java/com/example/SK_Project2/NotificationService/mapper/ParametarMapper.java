@@ -2,7 +2,9 @@ package com.example.SK_Project2.NotificationService.mapper;
 
 import com.example.SK_Project2.NotificationService.domain.Parametar;
 import com.example.SK_Project2.NotificationService.dto.parametar.ActivateEmailDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.CanceledReservationDto;
 import com.example.SK_Project2.NotificationService.dto.parametar.ChangedPasswordDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.SuccessfulReservationDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +23,10 @@ public class ParametarMapper {
 
         parametar.setOldPassword(null);
         parametar.setNewPassword(null);
+        parametar.setCar(null);
+        parametar.setPrice(null);
+        parametar.setStartDate(null);
+        parametar.setEndDate(null);
 
         return parametar;
     }
@@ -35,7 +41,49 @@ public class ParametarMapper {
         parametar.setFirstName(null);
         parametar.setLastName(null);
         parametar.setLink(null);
+        parametar.setCar(null);
+        parametar.setPrice(null);
+        parametar.setStartDate(null);
+        parametar.setEndDate(null);
 
         return parametar;
     }
+
+    public Parametar successfulReservationDtoToParametar(SuccessfulReservationDto successfulReservationDto){
+        Parametar parametar = new Parametar();
+
+        parametar.setEmail(successfulReservationDto.getEmail());
+        parametar.setCar(successfulReservationDto.getCar());
+        parametar.setPrice(successfulReservationDto.getPrice());
+        parametar.setStartDate(successfulReservationDto.getStartDate());
+        parametar.setEndDate(successfulReservationDto.getEndDate());
+
+        parametar.setLink(null);
+        parametar.setFirstName(null);
+        parametar.setLastName(null);
+        parametar.setOldPassword(null);
+        parametar.setNewPassword(null);
+
+        return parametar;
+    }
+
+    public Parametar canceledReservationDtoToParametar(CanceledReservationDto canceledReservationDto){
+        Parametar parametar = new Parametar();
+
+        parametar.setEmail(canceledReservationDto.getEmail());
+        parametar.setCar(canceledReservationDto.getCar());
+
+        parametar.setFirstName(null);
+        parametar.setLastName(null);
+        parametar.setOldPassword(null);
+        parametar.setNewPassword(null);
+        parametar.setLink(null);
+        parametar.setPrice(null);
+        parametar.setStartDate(null);
+        parametar.setEndDate(null);
+
+        return parametar;
+    }
+
+
 }
