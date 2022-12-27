@@ -1,6 +1,7 @@
 package com.example.SK_Project2.NotificationService.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -20,7 +21,7 @@ public class Email {
 
     private String emailTo;
 
-    private String date; // String.valueOf(LocalDate.now());
+    private Date date; // String.valueOf(LocalDate.now());
 
 
     public Email() {
@@ -74,11 +75,11 @@ public class Email {
         this.emailTo = emailTo;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

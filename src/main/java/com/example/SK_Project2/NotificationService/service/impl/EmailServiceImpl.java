@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +48,9 @@ public class EmailServiceImpl implements EmailService {
         email.setContext(notification.getText());
         email.setEmailFrom("skprojekat2test@gmail.com");
         email.setEmailTo(notification.getParametar().getEmail());
-        email.setDate(String.valueOf(LocalDate.now()));
+
+        Date now = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        email.setDate(now);
 
         emailRepository.save(email);
 
@@ -98,16 +101,12 @@ public class EmailServiceImpl implements EmailService {
         List<EmailDto> filterEmails = new ArrayList<>();
 
         for(EmailDto emailDto : allEmails){
-            try {
-                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(emailDto.getDate());
-
+                Date date = emailDto.getDate();
                 if(emailDto.getEmailTo().equals(filterEmailDto.getEmail()) && emailDto.getSubject().equals(filterEmailDto.getSubject())
-                        && filterEmailDto.getStartDate().before(date) && filterEmailDto.getStartDate().after(date)){
+                        && filterEmailDto.getStartDate().before(date) && filterEmailDto.getEndDate().after(date)) {
                     filterEmails.add(emailDto);
                 }
-            } catch (ParseException e) {
-                throw new NotFoundException(String.format("Failed convert string to date"));
-            }
+
         }
 
         return filterEmails;

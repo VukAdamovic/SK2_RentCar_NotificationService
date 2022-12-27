@@ -1,11 +1,13 @@
 package com.example.SK_Project2.NotificationService.dto.email;
 
+import java.util.Date;
+
 public class EmailDto {
     private String subject;
     private String context;
     private String emailFrom;
     private String emailTo;
-    private String date;
+    private Date date;
 
     public EmailDto() {
     }
@@ -42,11 +44,11 @@ public class EmailDto {
         this.emailTo = emailTo;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
