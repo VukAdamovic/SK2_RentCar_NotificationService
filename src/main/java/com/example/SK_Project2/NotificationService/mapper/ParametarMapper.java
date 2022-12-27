@@ -1,10 +1,7 @@
 package com.example.SK_Project2.NotificationService.mapper;
 
 import com.example.SK_Project2.NotificationService.domain.Parametar;
-import com.example.SK_Project2.NotificationService.dto.parametar.ActivateEmailDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.CanceledReservationDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.ChangedPasswordDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.SuccessfulReservationDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -72,6 +69,24 @@ public class ParametarMapper {
 
         parametar.setEmail(canceledReservationDto.getEmail());
         parametar.setCar(canceledReservationDto.getCar());
+
+        parametar.setFirstName(null);
+        parametar.setLastName(null);
+        parametar.setOldPassword(null);
+        parametar.setNewPassword(null);
+        parametar.setLink(null);
+        parametar.setPrice(null);
+        parametar.setStartDate(null);
+        parametar.setEndDate(null);
+
+        return parametar;
+    }
+
+    public Parametar remiderDtoToParametar(ReminderDto reminderDto){
+        Parametar parametar = new Parametar();
+
+        parametar.setEmail(reminderDto.getEmail());
+        parametar.setCar(reminderDto.getCar());
 
         parametar.setFirstName(null);
         parametar.setLastName(null);

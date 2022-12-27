@@ -2,10 +2,7 @@ package com.example.SK_Project2.NotificationService.mapper;
 
 import com.example.SK_Project2.NotificationService.domain.Notification;
 import com.example.SK_Project2.NotificationService.dto.notification.NotificationDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.ActivateEmailDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.CanceledReservationDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.ChangedPasswordDto;
-import com.example.SK_Project2.NotificationService.dto.parametar.SuccessfulReservationDto;
+import com.example.SK_Project2.NotificationService.dto.parametar.*;
 import com.example.SK_Project2.NotificationService.exception.NotFoundException;
 import com.example.SK_Project2.NotificationService.repository.NotificationRepository;
 import com.example.SK_Project2.NotificationService.repository.NotificationTypeRepository;
@@ -103,6 +100,20 @@ public class NotificationMapper {
 
         return notification;
 
+    }
+
+    public Notification reminderDtoToNotification(ReminderDto reminderDto){
+        Notification notification = new Notification();
+
+        notification.setNotificationType(notificationTypeRepository.findNotificationTypeByName("REMINDER").get());
+        notification.setParametar(parametarMapper.remiderDtoToParametar(reminderDto));
+
+        parametarRepository.save(notification.getParametar());
+
+        //Set text
+        notification.setText("Uskoro mozete da pokupite rezervaciju za automobil" + notification.getParametar().getCar());
+
+        return notification;
     }
 
 
