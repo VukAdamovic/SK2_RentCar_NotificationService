@@ -111,7 +111,7 @@ public class NotificationMapper {
         parametarRepository.save(notification.getParametar());
 
         //Set text
-        notification.setText("Uskoro mozete da pokupite rezervaciju za automobil" + notification.getParametar().getCar());
+        notification.setText("Uskoro mozete da pokupite rezervaciju za automobil  " + notification.getParametar().getCar());
 
         return notification;
     }
