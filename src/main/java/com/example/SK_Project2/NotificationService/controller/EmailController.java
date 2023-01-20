@@ -27,7 +27,7 @@ public class EmailController {
         return new ResponseEntity<>(emailService.findAllEmails(authorization), HttpStatus.OK);
     }
 
-    @GetMapping("/filter")
+    @PutMapping("/filter")
     @CheckSecurity(roles = {"ROLE_ADMIN","ROLE_MANAGER","ROLE_CLIENT"})
     public ResponseEntity<List<EmailDto>> getFilterEmails(@RequestHeader("authorization") String authorization, @RequestBody FilterEmailDto filterEmailDto){
         return new ResponseEntity<>(emailService.filterEmail(authorization,filterEmailDto),HttpStatus.OK);
